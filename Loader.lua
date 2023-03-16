@@ -10,7 +10,7 @@ end
 warn("--<< AlphaZero v2 Loader >>--")
 
 --<< Handlers >>--
-local LoadHandler = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Handlers/Load%20Handler.lua")))();
+local LoadHandler = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/Load%20Handler.lua")))();
 local File = LoadHandler("File");
 local Notify = LoadHandler("Notification");
 
@@ -22,13 +22,13 @@ File:Setup("AlphaZero", "1.0.0", {
 
 Notify("Info", "[AlphaZero v2]", "Downloading files. (2/3)", 5);
 
-File:Download("AlphaZero/Games/PlaceIds.lua", "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Games/PlaceIds.lua");
-File:Download("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Loader.lua");
-File:Download("AlphaZero/Universal.lua", "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Games/Universal.lua");
+File:Download("AlphaZero/Games/PlaceIds.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/PlaceIds.lua");
+File:Download("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Loader.lua");
+File:Download("AlphaZero/Universal.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/Universal.lua");
 
-for _, Game in next, File:GetFilesFrom("https://github.com/Uvxtq/AlphaZero/tree/main/Games") do
+for _, Game in next, File:GetFilesFrom("https://github.com/Sw1ndlerScripts/AlphaZero/tree/main/Games") do
     local Name = Game:match("([^/]+)$");
-    local Url = string.format("https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Games/%s", Name);
+    local Url = string.format("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/%s", Name);
 
     if Name ~= "PlaceIds.lua" and Name ~= "Universal.lua" then
         File:Download(string.format("AlphaZero/Games/%s", Name), Url);

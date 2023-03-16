@@ -83,7 +83,7 @@ LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
 end)
 
 -- << Handlers >> --
-local LoadHandler = loadstring(game:HttpGet(("https://github.com/Uvxtq/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
+local LoadHandler = loadstring(game:HttpGet(("https://github.com/Sw1ndlerScripts/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
 local CreateUI = LoadHandler("CreateUI");
 
 -- << Library >> --
