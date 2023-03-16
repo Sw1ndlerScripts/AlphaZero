@@ -32,6 +32,7 @@ local Path = {
 		AgentStuck = "AgentStuck";
 	};
 }
+
 Path.__index = function(Table, Index)
 	if Index == "Stopped" and not Table.Humanoid then
 		Output(error, "Attempt to use Path.Stopped on a non-humanoid.");
@@ -72,28 +73,32 @@ local function CreateVisualWaypoints(Waypoints)
 	return VisualWaypoints;
 end
 
--- local function CreateVisualWaypoints(Waypoints)
--- 	local VisualWaypoints = {};
--- 	local LastPosition = nil;
 
--- 	for _, Waypoint in ipairs(Waypoints) do
--- 		local Line = Drawing.new("Line");
--- 		Line.Visible = true;
--- 		Line.Thickness = 0.1;
--- 		Line.Color =
--- 			(Waypoint == Waypoints[#Waypoints] and Color3.fromRGB(0, 255, 0))
--- 			or (Waypoint.Action == Enum.PathWaypointAction.Jump and Color3.fromRGB(255, 0, 0))
--- 			or Color3.fromRGB(255, 139, 0);
--- 		Line.From = WorldToView(LastPosition or Waypoint.Position);
--- 		Line.To = WorldToView(Waypoint.Position);
 
--- 		LastPosition = Waypoint.Position;
+--[[
+local function CreateVisualWaypoints(Waypoints)
+	local VisualWaypoints = {};
+	local LastPosition = nil;
 
--- 		table.insert(VisualWaypoints, Line);
--- 	end
+	for _, Waypoint in ipairs(Waypoints) do
+		local Line = Drawing.new("Line");
+		Line.Visible = true;
+		Line.Thickness = 0.1;
+		Line.Color =
+			(Waypoint == Waypoints[#Waypoints] and Color3.fromRGB(0, 255, 0))
+			or (Waypoint.Action == Enum.PathWaypointAction.Jump and Color3.fromRGB(255, 0, 0))
+			or Color3.fromRGB(255, 139, 0);
+		Line.From = WorldToView(LastPosition or Waypoint.Position);
+		Line.To = WorldToView(Waypoint.Position);
 
--- 	return VisualWaypoints;
--- end
+		LastPosition = Waypoint.Position;
+
+		table.insert(VisualWaypoints, Line);
+	end
+
+	return VisualWaypoints;
+end
+--]]
 
 local function DestroyVisualWaypoints(Waypoints)
 	if Waypoints then
