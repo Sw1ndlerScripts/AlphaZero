@@ -1,3 +1,5 @@
+-- test
+
 --<< AlphaZero v2 Loader >>--
 if typeof(syn) == "table" and gethui then
     syn.protect_gui = not gethui and syn.protect_gui or function(Instance) Instance.Parent = gethui() end;
