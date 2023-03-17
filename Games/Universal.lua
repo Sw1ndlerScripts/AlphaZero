@@ -37,4 +37,4 @@ SaveManager:SetLibrary(Library);
 SaveManager:BuildConfigSection(Tabs["UI Settings"]);
 ThemeManager:BuildThemeSection(Tabs["UI Settings"]);
 
-warn("AlphaZero loaded in " .. round(tick()-  PreLoadTick, 2) .. ' seconds')
+warn("AlphaZero loaded in " .. round(tick() - PreLoadTick, 2) .. ' seconds')
