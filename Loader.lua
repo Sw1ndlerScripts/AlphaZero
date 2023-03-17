@@ -60,7 +60,7 @@ end
 --<< Main >>--
 local Game = GetGameFromPlaceId();
 
-if not isfile("AlphaZero/" .. Game) then
+if not isfile("AlphaZero/Games/" .. Game) then
     Notify("Info", "Unknown Game", "Game not found, loading universal script.", 5);
 
     File:Load("AlphaZero/Universal.lua");
