@@ -1,18 +1,3 @@
---<< Variables >>--
-local GameName = MarketplaceService:GetProductInfo(game.PlaceId).Name;
-
-local function GetGameFromPlaceId()
-    local Games = File:Load("AlphaZero/Games/PlaceIds.lua");
-
-    for Game, PlaceId in next, Games do
-        if PlaceId == game.PlaceId then
-            return Game;
-        end
-    end
-
-    return false;
-end
-
 --<< AlphaZero v2 Loader >>--
 if typeof(syn) == "table" and gethui then
     syn.protect_gui = not gethui and syn.protect_gui or function(Instance) Instance.Parent = gethui() end;
