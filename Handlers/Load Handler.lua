@@ -62,10 +62,7 @@ local function LoadHandler(Name)
     Name = ReplaceSpace(Name);
 
     if Functions[Name] then
-        pcall(function()
-            return loadstring(Functions[Name])();
-        end)
-        
+        return loadstring(Functions[Name])();
     end
 
     warn(string.format("Handler %s not found", Name));
