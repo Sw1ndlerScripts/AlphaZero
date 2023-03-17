@@ -197,16 +197,24 @@ CombatTab:AddSlider("Head Chance", {
     end
 })
 
+local bigHead
 CombatTab:AddToggle("Big Head", {
     Text = "Big Head Hitbox",
     Default = false,
     Tooltip = "Makes the enemies head bigger so you can hit people easier",
+    Callback = function(val)
+        bigHead = val
+    end
 })
 
+local showHeads = false
 CombatTab:AddToggle("Show Heads", {
     Text = "Show head hitboxes",
     Default = false,
     Tooltip = "Toggles visiblity of head hitboxes",
+    Callback = function(val)
+        showHeads = val
+    end
 })
 
 local HeadSize = 30;
@@ -247,11 +255,6 @@ MiscTab:AddToggle("Funny Head", {
 })
 
 
--- CombatTab:AddToggle("Kill All", {
---     Text = "Kill All",
---     Default = false,
---     Tooltip = "Kills all players on the server",
--- })
 
 rconsolelog("Info", "Successfully loaded functions");
 
@@ -276,7 +279,7 @@ local OldRayCast; OldRayCast = hookfunction(Raycast.cat, function(...)
         local HitPart = Character and Character:FindFirstChild(RandomPart);
 
         if HitPart and Weaponry:IsVisible(Target, RandomPart) and Weaponry:IsInFOV(Target, 250, true) and Character:FindFirstChild("ForceField") == nil then
-            Direction = (HitPart.Position - Position).Unit * 1000;
+            Direction = (HitPart.Position - Position).Unit * 2500;
         end
     end
 
@@ -320,36 +323,6 @@ task.spawn(function()
     end
 end)
 
---[[
-task.spawn(function()
-    while true do task.wait()
-        if Library.Unloaded then break; end
-        KillallToggle = Toggles["Kill All"].Value;
-
-        if Toggles["Kill All"].Value then
-            Weaponry:KillAll();
-        end
-    end
-end)
---]]
-
-
-LocalPlayer.CharacterAdded:Connect(function()
-    if Library.Unloaded then return; end
-
-    -- task.spawn(function()
-    --     if Toggles["Kill All"].Value then
-    --         task.wait(1.5);
-
-    --         local VirtualUser = game:GetService("VirtualUser");
-    --         VirtualUser:CaptureController();
-
-    --         VirtualUser:SetKeyDown("w");
-    --         task.wait(0.5);
-    --         VirtualUser:SetKeyUp("w");
-    --     end
-    -- end)
-end)
 
 rconsolelog("Info", "Successfully loaded Gun Mods");
 
@@ -426,44 +399,28 @@ local OldHitboxHead; OldHitboxHead = hookmetamethod(game, "__index", function(se
     return OldHitboxHead(self, key);
 end)
 
-local OverrideHitboxHead = false;
+
 task.spawn(function()
     while true do task.wait()
         if Library.Unloaded then break; end
 
-        if Toggles["Big Head"].Value then
-            -- if Toggles["Kill All"].Value then
-            --     OverrideHitboxHead = true;
-            --     return;
-            -- end
+        for _, Hitbox in next, workspace.Hitboxes:GetChildren() do
+            if Hitbox:FindFirstChild("HitboxHead") then
 
-            for _, Hitbox in next, workspace.Hitboxes:GetChildren() do
-                if Hitbox:FindFirstChild("HitboxHead") and Hitbox.HitboxHead.Size == Vector3.new(1.2, 1.1, 1.1) then
-                    Hitbox.HitboxHead.Size = Vector3.new(HeadSize, HeadSize, HeadSize);
+                if bigHead then
+                    Hitbox.HitboxHead.Size = Vector3.new(HeadSize, HeadSize, HeadSize)
+                else
+                    Hitbox.HitboxHead.Size = Vector3.new(1.2, 1.1, 1.1)
+                end
 
-                    if Toggles['Show Heads'] then
-                        Hitbox.HitboxHead.Transparency = 0.8
-                    else
-                        Hitbox.HitboxHead.Transparency = 1
-                    end
+                if showHeads then
+                    Hitbox.HitboxHead.Transparency = 0.8
+                else
+                    Hitbox.HitboxHead.Transparency = 1
                 end
             end
-        else
-            -- if OverrideHitboxHead then
-            --     if not Toggles["Kill All"].Value then
-            --         OverrideHitboxHead = false;
-            --     end
-
-            --     return;
-            -- end
-
-            -- for _, Hitbox in next, workspace.Hitboxes:GetChildren() do
-            --     if Hitbox:FindFirstChild("HitboxHead") and Hitbox.HitboxHead.Size == Vector3.new(30, 30, 30) then
-            --         Hitbox.HitboxHead.Size = Vector3.new(1.2, 1.1, 1.1);
-            --         --Hitbox.HitboxHead.Transparency = 0;
-            --     end
-            -- end
         end
+
     end
 end)
 
