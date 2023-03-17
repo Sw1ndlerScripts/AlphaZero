@@ -246,6 +246,12 @@ local ThemeManager = {} do
 		self:CreateThemeManager(groupbox)
 	end
 
+	function ThemeManager:BuildThemeSection(tab)
+		assert(self.Library, 'Must set ThemeManager.Library first!')
+		local groupbox = self:CreateGroupBox(tab)
+		self:CreateThemeManager(groupbox)
+	end
+
 	function ThemeManager:ApplyToGroupbox(groupbox)
 		assert(self.Library, 'Must set ThemeManager.Library first!')
 		self:CreateThemeManager(groupbox)

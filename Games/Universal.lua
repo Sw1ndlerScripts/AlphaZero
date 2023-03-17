@@ -15,6 +15,11 @@ local Library = CreateUI.Library;
 local ThemeManager = CreateUI.ThemeManager;
 local SaveManager = CreateUI. SaveManager;
 
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
 local Window = Library:CreateWindow({
     Title = "AlphaZero: Universal",
     Center = true,
@@ -26,9 +31,10 @@ local Tabs = {
     ["UI Settings"] = Window:AddTab("UI Settings"),
 };
 
-function round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-  end
+ThemeManager:SetLibrary(Library);
+SaveManager:SetLibrary(Library);
+
+SaveManager:BuildConfigSection(Tabs["UI Settings"]);
+ThemeManager:BuildThemeSection(Tabs["UI Settings"]);
 
 warn("AlphaZero loaded in " .. round(tick()-  PreLoadTick, 2) .. ' seconds')
