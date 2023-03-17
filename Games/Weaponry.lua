@@ -18,7 +18,7 @@ local Services = setmetatable({},{
         local Service = game:GetService(Index);
 
         if Service then
-            self[Index] = Service;
+            selfIndex = Service;
 
             return Service;
         end
@@ -312,7 +312,7 @@ task.spawn(function()
         if Toggles["Inf Ammo"].Value then
             Stats = debug.getupvalue(FireWeapon, 2);
 
-            if Stats and Stats.WeaponStats then
+            if Stats and Stats.WeaponStats and Stats.CurrentAmmo ~= Stats.WeaponStats.MaxAmmo then
                 Services.ReplicatedStorage.Remotes.WeaponHandler:FireServer(3, Stats);
                 Stats.CurrentAmmo = Stats.WeaponStats.MaxAmmo;
             end
