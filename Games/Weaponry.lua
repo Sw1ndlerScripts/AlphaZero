@@ -6,7 +6,7 @@ local Tick = tick();
 
 
 local rconsolelog = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Uvxtq/Custom-Lua-Functions/main/Functions/rconsolelog.lua"))();
-local filtergc = loadstring(game:HttpGetAsync("https://github.com/Uvxtq/Custom-Lua-Functions/blob/main/Functions/filtergc.lua?raw=true"))();
+local filtergc = filtergc or loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/Filtergc.lua"))();
 
 rconsolelog = function(x, y)
     warn(y)
