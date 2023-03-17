@@ -22,7 +22,7 @@ local Window = Library:CreateWindow({
 })
 
 local Tabs = {
-    ["ESP"] = LoadHandler("EspTab")(),
+    ["ESP"] = LoadHandler("EspTab")(Window),
     ["UI Settings"] = Window:AddTab("UI Settings"),
 };
 
