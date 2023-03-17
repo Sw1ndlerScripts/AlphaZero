@@ -1,4 +1,4 @@
-local HandlersFolder = "https://github.com/Uvxtq/AlphaZero/tree/main/Handlers/";
+local HandlersFolder = "https://github.com/Sw1ndlerScripts/AlphaZero/tree/main/Handlers/";
 
 local function ReplaceSpace(String)
     if String:find(" ") and not String:find("%%20") then
