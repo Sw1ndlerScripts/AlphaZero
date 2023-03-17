@@ -294,7 +294,9 @@ function initPlayer(player)
 end
 
 for i,v in pairs(game.Players:GetChildren()) do
-    initPlayer(v)
+    if v ~= game.Players.LocalPlayer then
+        initPlayer(v)
+    end
 end
 
 game.Players.PlayerAdded:Connect(function(player)
