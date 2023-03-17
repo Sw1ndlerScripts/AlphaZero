@@ -4,27 +4,27 @@ getgenv().esp_config = {
         Outline = true,
         Color = Color3.new(1,1,1),
         Size = 16,
-        Enabled = true
+        Enabled = false
     },
     Box = {
         Color = Color3.new(1,1,1),
         Thickness = 2,
-        Enabled = true
+        Enabled = false
     },
     Healthbar = {
-        Enabled = true
+        Enabled = false
     },
     Corners = {
-        Enabled = true,
+        Enabled = false,
         Color = Color3.new(1,1,1)
     },
     Fill = {
-        Enabled = true,
+        Enabled = false,
         Color = Color3.new(1,1,1),
         Transparency = 0.3
     },
     Tracer = {
-        Enabled = true,
+        Enabled = false,
         Color = Color3.new(1,1,1),
         Thickness = 1,
         Origin = "Mouse" -- Center, Mouse, Bottom
