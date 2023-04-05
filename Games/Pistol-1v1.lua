@@ -90,12 +90,10 @@ old = hookfunction(raycastMod.Raycast, function(...)
     return old(...)
 end)
 
-local LoadHandler = loadstring(game:HttpGet(("https://github.com/Sw1ndlerScripts/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
-local CreateUI = LoadHandler("CreateUI");
-
-local Library = CreateUI.Library;
-local ThemeManager = CreateUI.ThemeManager;
-local SaveManager = CreateUI. SaveManager;
+local Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua")))();
+local ThemeManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/ThemeHandler.lua")))();
+local SaveManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/addons/SaveManager.lua")))();
+local EspManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/EspTab.lua"))()
 
 
 local Window = Library:CreateWindow({
@@ -109,7 +107,7 @@ local Main = Window:AddTab('Main')
 
 local Toggles = Main:AddLeftGroupbox("Toggles") 
 local Config = Main:AddRightGroupbox("Toggles") 
-local Esp = LoadHandler("EspTab")(Window)
+local Esp = EspManager(Window)
 local UISettings = Window:AddTab("UI Settings")
 
 local box = UISettings:AddLeftGroupbox("Unload UI")
