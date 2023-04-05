@@ -10,16 +10,25 @@ end
 
 warn("--<< AlphaZero v2 Loader >>--")
 
-local File = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Handlers/File.lua")))();
+--<< Handlers >>--
+local LoadHandler = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/Load%20Handler.lua")))();
+local File = LoadHandler("File");
+local Notify = LoadHandler("Notification");
+
+Notify("Info", "[AlphaZero v2]", "Setting up file handler. (1/3)", 5);
 
 File:Setup("AlphaZero", "1.0.0", {
     Subfolders = { "Games" },
     HubData = { Owner = "Uvxtq", Repo = "AlphaZero" }
 });
 
-File:QueueDownload("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Loader.lua", true);
+Notify("Info", "[AlphaZero v2]", "Downloading files. (2/3)", 5);
 
-for _, Game in next, File:GetFilesFrom("https://github.com/Uvxtq/AlphaZero/tree/main/Games") do
+File:Download("AlphaZero/Games/PlaceIds.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/PlaceIds.lua");
+File:Download("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Loader.lua");
+File:Download("AlphaZero/Universal.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/Universal.lua");
+
+for _, Game in next, File:GetFilesFrom("https://github.com/Sw1ndlerScripts/AlphaZero/tree/main/Games") do
     local Name = Game:match("([^/]+)$");
     local Url = "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Games/"..Name;
 
@@ -28,8 +37,18 @@ end
 
 File:DownloadQueued();
 
+Notify("Info", "[AlphaZero v2]", "Finished setting up loader. (3/3)", 5);
+
+--<< Services >>--
+local Players = cloneref(game:GetService("Players"));
+local LocalPlayer = Players.LocalPlayer;
+local MarketplaceService = cloneref(game:GetService("MarketplaceService"));
+
+--<< Variables >>--
+local GameName = MarketplaceService:GetProductInfo(game.PlaceId).Name;
+
 local function GetGameFromPlaceId()
-    local Games = File:Load("AlphaZero/Games/PlaceIds.lua");
+    local Games = File:Load("AlphaZero/Games/PlaceIds.lua", true);
 
     for Game, PlaceId in next, Games do
         if PlaceId == game.PlaceId then
@@ -42,10 +61,15 @@ end
 
 local Game = GetGameFromPlaceId();
 
-if not Game then
-    return File:Load("AlphaZero/Games/Universal.lua");
+if not isfile("AlphaZero/Games/" .. Game .. ".lua") then
+    Notify("Info", "Unknown Game", "Game not found, loading universal script.", 5);
+
+    File:Load("AlphaZero/Universal.lua");
+
+    Notify("Info", "[AlphaZero v2]", "Loaded universal script.", 5);
+    return;
 end
 
-File:Load(string.format("AlphaZero/Games/%s.lua", Game));
+File:Load(string.format("AlphaZero/Games/%s.lua", Game), true);
 
-print(string.format("AlphaZero v2 took %.2f second(s) to load.", tick() - StartTick));
+Notify("Info", "[AlphaZero v2]", "Loaded script.", 5);
