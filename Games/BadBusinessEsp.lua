@@ -1,8 +1,6 @@
--- // Made because obfusacting destroyed fps
+-- Made because obfuscuating destroyed fps
 
-function InitEsp(EspTab, Characters)
-
-local plr = game.Players.LocalPlayer
+function InitEsp(EspTab, Characters, util)
 
 local camera = workspace.CurrentCamera
 local uis = game:GetService("UserInputService")
