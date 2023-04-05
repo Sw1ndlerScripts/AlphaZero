@@ -1,11 +1,15 @@
+local StartTime = tick();
+
 if isfile("AlphaZero/Loader.lua") then
-    loadfile("AlphaZero/Loader.lua")();
+    loadfile("AlphaZero/Loader.lua")()
 else
-    local Status, Script = pcall(game.HttpGet, game, "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Loader.lua");
+    local Status, Script = pcall(game.HttpGet, game, "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Loader.lua");
 
     if Status then
         loadstring(Script)()
     else
-        game:GetService("Players").LocalPlayer:Kick("Failed to grab loader, join the discord for support.");
+        cloneref(game:GetService("Players")).LocalPlayer:Kick("Failed to grab loader, join the discord for support.");
     end
 end
+
+print(string.format("AlphaZero v2 took %.2f second(s) to load.", tick() - StartTime));
