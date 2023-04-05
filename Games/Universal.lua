@@ -8,13 +8,8 @@ end
 -- << Load Handler >> --
 local ESP = loadstring(game:HttpGet('https://scripts.luawl.com/hosted/1933/17507/ESP.lua'))();
 local LoadHandler = loadstring(game:HttpGet(("https://github.com/Uvxtq/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
-local ESP = loadstring(game:HttpGet('https://scripts.luawl.com/hosted/1933/17507/ESP.lua'))();
-local LoadHandler = loadstring(game:HttpGet(("https://github.com/Uvxtq/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
 
 -- << Library >> --
-local Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua")))();
-local ThemeManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Uvxtq/Project-AlphaZero/main/AlphaZero/Theme%20Manager.lua")))();
-local SaveManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/addons/SaveManager.lua")))();
 local Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua")))();
 local ThemeManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Uvxtq/Project-AlphaZero/main/AlphaZero/Theme%20Manager.lua")))();
 local SaveManager = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/addons/SaveManager.lua")))();
@@ -507,6 +502,100 @@ ThemeManager:SetFolder("ESP");
 SaveManager:SetFolder("ESP");
 
 SaveManager:BuildConfigSection(Tabs["UI Settings"]);
-ThemeManager:BuildThemeSection(Tabs["UI Settings"]);
 
-warn("AlphaZero loaded in " .. round(tick() - PreLoadTick, 2) .. ' seconds')
+ThemeManager:ApplyToTab(Tabs["UI Settings"]);
+
+task.spawn(function()
+    while game:GetService("RunService").RenderStepped:Wait() do
+        if Library.Unloaded then break; end
+
+        if Toggles.Rainbow and Toggles.Rainbow.Value then
+            local Registry = Window.Holder.Visible and Library.Registry or Library.HudRegistry;
+
+            for _, Object in next, Registry do
+                for Property, ColorIdx in next, Object.Properties do
+                    if ColorIdx == 'AccentColor' or ColorIdx == 'AccentColorDark' then
+                        local Instance = Object.Instance;
+                        local yPos = Instance.AbsolutePosition.Y;
+
+                        local Mapped = Library:MapValue(yPos, 0, 1080, 0, 0.5) * 1.5;
+                        local Color = Color3.fromHSV((Library.CurrentRainbowHue - Mapped) % 1, 0.8, 1);
+
+                        if ColorIdx == 'AccentColorDark' then
+                            Color = Library:GetDarkerColor(Color);
+                        end
+
+                        Instance[Property] = Color;
+                    end
+                end
+            end
+        end
+    end
+end)
+
+Toggles.Rainbow:OnChanged(function()
+    if not Toggles.Rainbow.Value then
+        ThemeManager:ThemeUpdate()
+    end
+end)
+
+local function GetLocalTime()
+    local Time = os.date("*t")
+    local Hour = Time.hour;
+    local Minute = Time.min;
+    local Second = Time.sec;
+
+    local AmPm = nil;
+    if Hour >= 12 then
+        Hour = Hour - 12;
+        AmPm = "PM";
+    else
+        Hour = Hour == 0 and 12 or Hour;
+        AmPm = "AM";
+    end
+
+    return string.format("%s:%02d:%02d %s", Hour, Minute, Second, AmPm);
+end
+
+local DayMap = {"st", "nd", "rd", "th"};
+local function FormatDay(Day)
+    local LastDigit = Day % 10;
+    if LastDigit >= 1 and LastDigit <= 3 then
+        return string.format("%s%s", Day, DayMap[LastDigit]);
+    end
+
+    return string.format("%s%s", Day, DayMap[4]);
+end
+
+local MonthMap = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+local function GetLocalDate()
+    local Time = os.date("*t")
+    local Day = Time.day;
+
+    local Month = nil;
+    if Time.month >= 1 and Time.month <= 12 then
+        Month = MonthMap[Time.month];
+    end
+
+    return string.format("%s %s", Month, FormatDay(Day));
+end
+
+local function GetLocalDateTime()
+    return GetLocalDate() .. " " .. GetLocalTime();
+end
+
+Toggles.Rainbow:SetValue(true);
+
+Library:Notify(string.format("Loaded script in %.2f second(s)!", tick() - PreLoadTick), 5);
+
+task.spawn(function()
+    while true do task.wait(0.1)
+        if Library.Unloaded then break; end
+
+        local Ping = string.split(string.split(game.Stats.Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1], ".")[1];
+        local Fps = string.split(game.Stats.Workspace.Heartbeat:GetValueString(), ".")[1];
+        local AccountName = LocalPlayer.Name;
+
+        Library:SetWatermark(string.format("%s | %s | %s FPS | %s Ping", GetLocalDateTime(), AccountName, Fps, Ping));
+    end
+end)
