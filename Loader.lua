@@ -10,18 +10,18 @@ end
 
 warn("--<< AlphaZero v2 Loader >>--")
 
-local File = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Handlers/File.lua")))();
+local File = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Handlers/File.lua")))();
 
 File:Setup("AlphaZero", "1.0.0", {
     Subfolders = { "Games" },
-    HubData = { Owner = "Sw1ndlerScripts", Repo = "AlphaZero" }
+    HubData = { Owner = "Uvxtq", Repo = "AlphaZero" }
 });
 
-File:QueueDownload("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Loader.lua", true);
+File:QueueDownload("AlphaZero/Loader.lua", "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Loader.lua", true);
 
-for _, Game in next, File:GetFilesFrom("https://github.com/Sw1ndlerScripts/AlphaZero/tree/main/Games") do
+for _, Game in next, File:GetFilesFrom("https://github.com/Uvxtq/AlphaZero/tree/main/Games") do
     local Name = Game:match("([^/]+)$");
-    local Url = "https://raw.githubusercontent.com/Sw1ndlerScripts/AlphaZero/main/Games/"..Name;
+    local Url = "https://raw.githubusercontent.com/Uvxtq/AlphaZero/main/Games/"..Name;
 
     File:QueueDownload("AlphaZero/Games/"..Name, Url);
 end
