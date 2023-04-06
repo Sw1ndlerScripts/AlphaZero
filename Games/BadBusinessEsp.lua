@@ -1,12 +1,10 @@
--- Made because obfuscuating destroyed fps
-
 function InitEsp(EspTab, Characters, util)
 
 local camera = workspace.CurrentCamera
 local uis = game:GetService("UserInputService")
 
-getgenv().ESP_ENABLED = false
-getgenv().esp_config = {
+local ESP_ENABLED = false
+local esp_config = {
     Text = {
         Outline = true,
         Color = Color3.new(1,1,1),
@@ -322,12 +320,10 @@ local teamColors = {
     ['Beta'] = Color3.fromRGB(0, 0, 255)
 }
 
+local showDrawings = true
+
 game:GetService("RunService").RenderStepped:Connect(function()
-    for i, object in pairs(espObjects) do
-        local esp_config = esp_config
-        local showDrawings = true
-
-
+    for i, object in ipairs(espObjects) do
         if ESP_ENABLED and isvalidplayer(object.Player) then -- and 
 
             local _, onscreen =  camera:WorldToViewportPoint(Characters[object.Player].Body.Chest.Position)
@@ -413,7 +409,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
                     drawing.Transparency = 0
                 end
 
-            end
+                end
 
             if object.Remove then
                 for _, drawing in pairs(object.Drawings) do
@@ -422,7 +418,10 @@ game:GetService("RunService").RenderStepped:Connect(function()
                 table.remove(espObjects, i)
             end
 
-
+            end
+        else
+            for _, drawing in pairs(object.Drawings) do
+                drawing.Transparency = 0
             end
         end
     end
