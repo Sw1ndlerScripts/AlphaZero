@@ -40,6 +40,18 @@ local esp_config = {
 
 local espObjects = {}
 
+local Teams = {}
+
+for _, team in game:GetService("Teams"):GetChildren() do
+    for _, player in pairs(team.Players:GetChildren()) do
+        Teams[player.Name] = team
+    end
+    team.Players.ChildAdded:Connect(function(player)
+        Teams[player.Name] = team
+    end)
+end
+
+
 do
 
 function addBox(player)
@@ -343,16 +355,13 @@ game:GetService("RunService").RenderStepped:Connect(function()
                 do
 
                 
-                local team = util:getPlayerTeam(object.Player)
-                local teamColor = team
+                local team = Teams[object.Player.Name]
 
-                if teamColor then
-                    teamColor = teamColors[tostring(teamColor)]
+                local teamColor = Color3.new(1, 1 ,1)
+                if team then
+                    teamColor = teamColors[tostring(teamColor)] or Color3.new(1, 1, 1)
                 end
 
-                if teamColor == nil then
-                    teamColor = Color3.fromRGB(255, 255, 255)
-                end
 
                 if esp_config[object.Type].Enabled == false then
                     showDrawings = false
@@ -405,7 +414,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
                     end
                 end
 
-                if esp_config.TeamCheck and util:getPlayerTeam(game.Players.LocalPlayer) == team then
+                if esp_config.TeamCheck and Teams[game.Players.LocalPlayer.Name] == team then
                     drawing.Transparency = 0
                 end
 
