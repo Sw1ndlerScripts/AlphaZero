@@ -1,4 +1,5 @@
-function InitEsp(EspTab, Characters, util)
+-- 5:17
+function InitEsp(EspTab, Characters)
 
 local camera = workspace.CurrentCamera
 local uis = game:GetService("UserInputService")
@@ -428,7 +429,8 @@ game:GetService("RunService").RenderStepped:Connect(function()
             end
 
             end
-        else
+        end
+        if ESP_ENABLED == false then
             for _, drawing in pairs(object.Drawings) do
                 drawing.Transparency = 0
             end
