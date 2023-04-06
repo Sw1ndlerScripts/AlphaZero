@@ -1,3 +1,4 @@
+-- // v1.5
 function InitEsp(EspTab, Characters)
 
     local camera = workspace.CurrentCamera
@@ -42,7 +43,7 @@ function InitEsp(EspTab, Characters)
     
     local Teams = {}
     
-    for _, team in game:GetService("Teams"):GetChildren() do
+    for _, team in pairs(game:GetService("Teams"):GetChildren()) do
         for _, player in pairs(team.Players:GetChildren()) do
             Teams[player.Name] = team
         end
@@ -635,7 +636,6 @@ function InitEsp(EspTab, Characters)
         end,
     })
     end
-    
-    end
-    
-    return InitEsp
+end
+
+return InitEsp
