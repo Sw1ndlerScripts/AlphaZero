@@ -1,4 +1,4 @@
---- no bad buisjeyde HRR
+-- [enmosi dhaha
 function InitEsp(EspTab, Characters)
 
     local camera = workspace.CurrentCamera
@@ -354,71 +354,73 @@ function InitEsp(EspTab, Characters)
             if ESP_ENABLED then
     
                 for _, drawing in pairs(object.Drawings) do
-                    do
-                    
-                    local team = Teams[object.Player.Name]
-    
-                    local teamColor = Color3.new(1, 1 ,1)
-                    if team then
-                        teamColor = teamColors[tostring(team)] or Color3.new(1, 1, 1)
-                    end
-    
-    
-                    if esp_config[object.Type].Enabled == false then
-                        showDrawings = false
-                    end
-    
-                    if showDrawings == false then -- showDrawings == false
-                        drawing.Visible = false
-                        drawing.Transparency = 0
-                    else
-                        drawing.Visible = true
-    
-                        if esp_config[object.Type].Transparency == nil then
-                            drawing.Transparency = 1
+                    if object.Remove == nil then
+                        do
+                        
+                        local team = Teams[object.Player.Name]
+        
+                        local teamColor = Color3.new(1, 1 ,1)
+                        if team then
+                            teamColor = teamColors[tostring(team)] or Color3.new(1, 1, 1)
+                        end
+        
+        
+                        if esp_config[object.Type].Enabled == false then
+                            showDrawings = false
+                        end
+        
+                        if showDrawings == false then -- showDrawings == false
+                            drawing.Visible = false
+                            drawing.Transparency = 0
                         else
-                            drawing.Transparency = esp_config[object.Type].Transparency
+                            drawing.Visible = true
+        
+                            if esp_config[object.Type].Transparency == nil then
+                                drawing.Transparency = 1
+                            else
+                                drawing.Transparency = esp_config[object.Type].Transparency
+                            end
                         end
-                    end
-    
-                    if object.Type == 'Text' then
-                        drawing.Outline = esp_config.Text.Outline
-                        drawing.Color = esp_config.Text.Color
-                        drawing.Size = esp_config.Text.Size
-                    end
-    
-                    if object.Type == 'Box' then
-                        drawing.Color = esp_config.Box.Color
-                        drawing.Thickness = esp_config.Box.Thickness
-    
-                        if esp_config.TeamColor then
-                            drawing.Color = teamColor or Color3.new(1,1,1)
+        
+                        if object.Type == 'Text' then
+                            drawing.Outline = esp_config.Text.Outline
+                            drawing.Color = esp_config.Text.Color
+                            drawing.Size = esp_config.Text.Size
                         end
-                    end
-    
-                    if object.Type == 'Fill' then
-                        drawing.Color = esp_config.Fill.Color
-                        drawing.Transparency = esp_config.Fill.Transparency
-    
-                        if esp_config.TeamColor then
-                            drawing.Color = teamColor or Color3.new(1,1,1)
+        
+                        if object.Type == 'Box' then
+                            drawing.Color = esp_config.Box.Color
+                            drawing.Thickness = esp_config.Box.Thickness
+        
+                            if esp_config.TeamColor then
+                                drawing.Color = teamColor or Color3.new(1,1,1)
+                            end
                         end
-                    end
-    
-    
-                    if object.Type == 'Tracer' then
-                        drawing.Color = esp_config.Tracer.Color or Color3.new(1,1,1)
-                        drawing.Thickness = esp_config.Tracer.Thickness
-    
-                        if esp_config.TeamColor then
-                            drawing.Color = teamColor or Color3.new(1,1,1)
+        
+                        if object.Type == 'Fill' then
+                            drawing.Color = esp_config.Fill.Color
+                            drawing.Transparency = esp_config.Fill.Transparency
+        
+                            if esp_config.TeamColor then
+                                drawing.Color = teamColor or Color3.new(1,1,1)
+                            end
                         end
-                    end
-    
-                    if esp_config.TeamCheck and Teams[game.Players.LocalPlayer.Name] == team then
-                        drawing.Transparency = 0
-                    end
-    
+        
+        
+                        if object.Type == 'Tracer' then
+                            drawing.Color = esp_config.Tracer.Color or Color3.new(1,1,1)
+                            drawing.Thickness = esp_config.Tracer.Thickness
+        
+                            if esp_config.TeamColor then
+                                drawing.Color = teamColor or Color3.new(1,1,1)
+                            end
+                        end
+        
+                        if esp_config.TeamCheck and Teams[game.Players.LocalPlayer.Name] == team then
+                            drawing.Transparency = 0
+                        end
+        
+                        end
                     end
     
                 if object.Remove then
@@ -446,7 +448,7 @@ function InitEsp(EspTab, Characters)
     local BoxTab = EspTab:AddRightGroupbox('Box Settings')
     local FillTab = EspTab:AddRightGroupbox('Fill Settings')
     local TracerTab = EspTab:AddRightGroupbox('Tracer Settings')
-    local ColorsTab = EspTab:AddRightGroupbox('Colors')
+    local ColorsTab = EspTab:AddLeftGroupbox('Colors')
     
     --- main tab
     do
