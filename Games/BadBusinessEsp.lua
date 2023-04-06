@@ -1,4 +1,4 @@
---- fe l;ength frfr
+--- no bad buisjeyde HRR
 function InitEsp(EspTab, Characters)
 
     local camera = workspace.CurrentCamera
@@ -446,6 +446,7 @@ function InitEsp(EspTab, Characters)
     local BoxTab = EspTab:AddRightGroupbox('Box Settings')
     local FillTab = EspTab:AddRightGroupbox('Fill Settings')
     local TracerTab = EspTab:AddRightGroupbox('Tracer Settings')
+    local ColorsTab = EspTab:AddRightGroupbox('Colors')
     
     --- main tab
     do
@@ -635,6 +636,20 @@ function InitEsp(EspTab, Characters)
             esp_config.Tracer.Origin = value
         end,
     })
+    end
+
+    -- colors
+    do
+        for team, color in pairs(teamColors) do
+            ColorsTab:AddLabel(team .. ' Color'):AddColorPicker('FovColor', {
+                Default = color, 
+                Callback = function(Value)
+                    teamColors[team] = Value
+                end
+            })
+        end
+
+
     end
 end
 
