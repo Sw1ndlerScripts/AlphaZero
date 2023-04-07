@@ -7,7 +7,6 @@ end
 
 -- << Load Handler >> --
 local ESP = loadstring(game:HttpGet('https://scripts.luawl.com/hosted/1933/17507/ESP.lua'))();
-local LoadHandler = loadstring(game:HttpGet(("https://github.com/Uvxtq/AlphaZero/blob/main/Handlers/Load%20Handler.lua?raw=true")))();
 
 -- << Library >> --
 local Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua")))();
