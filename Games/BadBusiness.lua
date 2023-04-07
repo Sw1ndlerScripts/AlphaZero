@@ -1,5 +1,3 @@
--- // This is your new loader, please replace your existing one  
--- // your hosted loadstring is below, use it or host the included script yourself
 -- loadstring(game:HttpGet('https://scripts.luawl.com/hosted/1933/18542/BadBusiness.lua'))()
 
 -- This file was generated using Luraph Obfuscator v13.6.6
